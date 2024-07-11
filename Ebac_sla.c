@@ -3,9 +3,128 @@
 #include <locale.h> //biblioteca de alocações de texto por regiao
 #include <string.h> //biblioteca responsável por cuidar das strings
 
-
-
 //criando funções
+int menureg()
+//Função para perguntar se o usuário deseja voltar ao menu ou cadastrar mais nomes!
+{
+	system("cls");
+//Limpando a tela
+    int opcao=0;
+//Variavel
+	setlocale(LC_ALL, "portuguese");
+//Botando em português
+
+//Perguntando se deseja continuar ou voltar ao menu
+	printf("Escolha a opção desejada:\n\n");
+	printf("1- Voltar ao menu\n");
+	printf("2- Continuar registrando\n");
+	printf("Opção:");
+//Fim
+
+	scanf("%d", &opcao);
+//Armazendo escolha do usuário
+
+//Definindo oque cada opção vai fazer
+	switch (opcao)
+	{
+		case 1:
+		main();
+		break;
+		case 2:
+		registro();
+		break;
+		default:
+		system("cls");
+		printf("essa opção não está disponivel\n");
+		system("pause");
+		menureg();
+		break;
+	}
+//Fim
+}
+
+
+int menucon()
+//Função para perguntar se o usuário deseja voltar ao menu ou consultar mais nomes!
+{
+	system("cls");
+//Limpando a tela
+
+	int opcao=0;
+//Variavel
+
+	setlocale(LC_ALL, "portuguese");
+//Botando em português
+
+//Perguntando se deseja continuar ou voltar ao menu
+	printf("Escolha a opção desejada:\n\n");
+	printf("1- Voltar ao menu\n");
+	printf("2- Consultar mais nomes\n");
+	printf("Opção:");
+//Fim
+
+	scanf("%d", &opcao);
+//Armazenando escolha do usuário	
+
+//Definindo oque cada opção vai fazer	
+	switch (opcao)
+	{
+		case 1:
+		main();
+		break;
+		case 2:
+		consulta();
+		break;
+		default:
+		system("cls");
+		printf("essa opção não está disponivel\n");
+		system("pause");
+		menucon();
+		break;
+	}
+//fim
+}
+
+
+int menudel()
+//Função para perguntar se o usuário deseja voltar ou deletar mais nomes!
+{
+	system("cls");
+//Limpando a tela
+    int opcao=0;
+//variavel
+	setlocale(LC_ALL, "portuguese");
+//Botando em português
+
+//Perguntando se deseja continuar ou voltar ao menu
+	printf("Escolha a opção desejada:\n\n");
+	printf("1- Voltar ao menu\n");
+	printf("2- Deletar mais nomes\n");
+	printf("Opção:");
+//Fim
+
+	scanf("%d", &opcao);
+//Armazendo escolha do usuário
+
+//Definindo oque cada opção vai fazer
+	switch (opcao)
+	{
+		case 1:
+		main();
+		break;
+		case 2:
+		deletar();
+		break;
+		default:
+		system("cls");
+		printf("essa opção não está disponivel\n");
+		system("pause");
+		menudel();
+		break;
+	}
+//fim
+}
+
 int registro()
 //Cadastrar usuários no sitema
 {
@@ -16,7 +135,10 @@ int registro()
 	char sobrenome[40];
 	char cargo[40];
 //fim das variaveis/string
-	
+
+    system("cls");
+//limpando a tela	
+
 	printf("Digite o CPF a ser cadastrado: ");
 	scanf("%s", cpf);
 //Perguntando o CPF e armazendo a resposta
@@ -70,8 +192,13 @@ int registro()
 	file = fopen(arquivo, "a");
 	fprintf(file, cargo);
 	fclose(file);
-//Salvando os dados dentro do arquivo (Cargo)	
-	system("pause");
+//Salvando os dados dentro do arquivo (Cargo)
+
+menureg();
+//Pergunta se deseja continuar registrando ou voltar ao menu
+
+system("pause");
+
 }
 
 int consulta()
@@ -84,7 +211,10 @@ int consulta()
     char cpf[40]; 
     char conteudo[200];
 //variaveis/strings
-    
+
+    system("cls");
+//Limpando a tela
+
     printf("Digite o CPF a ser consultado: ");
     scanf("%s", cpf);
 //armazenando a resposta do cliente
@@ -106,8 +236,13 @@ int consulta()
 		printf("\n\n");
 	}
 //Consultando as informações dentro do arquivo e apresentando ao usuario 
-        fclose(file);
-        system("pause");
+
+    fclose(file);
+    system("pause");
+//Fechando o Arquivo
+
+    menucon(); 
+//Pergunta se deseja continuar Consultando ou voltar ao menu     
         
 }
 
@@ -116,7 +251,10 @@ int deletar()
 //deletar usuários do sistesma
 {
 	char cpf[40];
-//variavel	
+//Variavel	
+	
+	system("cls");
+//limpando a tela
 	
 	printf("Digite o CPF do usuário a ser deletado: ");
 	scanf("%s", cpf);
@@ -135,6 +273,9 @@ int deletar()
 		system("pause");
     }
 //Informando que o usuário não se encontra mais no sistema
+
+    menudel();
+//Pergunta se deseja continuar deletando ou voltar ao menu
 	
 }
 //fim das funçoes
@@ -187,7 +328,7 @@ int main()
    	        break;
    	        
    	        case 4:
-   	        printf("Obrigado por utilizar o sistem\n");
+   	        printf("Obrigado por utilizar o sistema\n");
    	        return 0;
    	        break;
    	        
