@@ -4,7 +4,73 @@
 #include <string.h> //biblioteca responsável por cuidar das strings
 
 //criando funções
-int menureg()
+int menuprincipal()
+//Função que tras o menu principal
+{
+    int opcao=0;
+    int laco=1;
+    int exit=0;
+    //Definindo variaveis
+    
+   
+    for(laco=1;laco=1;)
+    { 
+  
+        system("cls");
+    //limpando a opção escolhida
+        
+        setlocale(LC_ALL, "portuguese");
+    //Definindo a linguagem
+    
+    //Inicio do menu
+    	printf("### Cartório da EBAC ###\n\n");
+        printf("Escolher a opção desejada do menu:\n\n");
+    	printf("\t1- Registras nomes\n");
+    	printf("\t2- Consultar nomes\n");
+    	printf("\t3- Deletar nomes\n");
+    	printf("\t4- Sair do progama\n\n");
+    	printf("opção: ");
+    //Final do menu
+	
+    	scanf("%d", &opcao);
+    //Armazenando a escolha do usuario
+	
+        system("cls");
+        //Limpando o menu    
+
+        //Indo para dentro das opções
+        switch(opcao)
+        {
+        //Chamando funções  
+    	    case 1:
+            registro();
+    	    break;
+	        
+    	    case 2:
+    	    consulta();
+    	    break;
+	        
+    		case 3:	
+    		deletar();
+            break;
+   	        
+     	    case 4:
+    	    printf("Obrigado por utilizar o sistema\n"); 
+    	    return 0;
+    	    
+   	    //Acabou de chamar as funções
+   	
+     	    default:
+    	    printf("Está opção não esta disponivel!\n");
+        	system("pause");
+        	break;
+        //Informando quando bota uma opção indisponivel	
+       }
+	    //fim das funções		        
+	}
+}
+		
+void menureg()
 //Função para perguntar se o usuário deseja voltar ao menu ou cadastrar mais nomes!
 {
 	system("cls");
@@ -28,7 +94,7 @@ int menureg()
 	switch (opcao)
 	{
 		case 1:
-		main();
+		menuprincipal();
 		break;
 		case 2:
 		registro();
@@ -44,7 +110,7 @@ int menureg()
 }
 
 
-int menucon()
+void menucon()
 //Função para perguntar se o usuário deseja voltar ao menu ou consultar mais nomes!
 {
 	system("cls");
@@ -70,7 +136,7 @@ int menucon()
 	switch (opcao)
 	{
 		case 1:
-		main();
+		menuprincipal();
 		break;
 		case 2:
 		consulta();
@@ -86,7 +152,7 @@ int menucon()
 }
 
 
-int menudel()
+void menudel()
 //Função para perguntar se o usuário deseja voltar ou deletar mais nomes!
 {
 	system("cls");
@@ -99,7 +165,7 @@ int menudel()
 //Perguntando se deseja continuar ou voltar ao menu
 	printf("Escolha a opção desejada:\n\n");
 	printf("1- Voltar ao menu\n");
-	printf("2- Deletar mais nomes\n");
+	printf("2- Excluir outro nome\n");
 	printf("Opção:");
 //Fim
 
@@ -110,7 +176,7 @@ int menudel()
 	switch (opcao)
 	{
 		case 1:
-		main();
+		menuprincipal();
 		break;
 		case 2:
 		deletar();
@@ -141,53 +207,62 @@ int registro()
 
 	printf("Digite o CPF a ser cadastrado: ");
 	scanf("%s", cpf);
-//Perguntando o CPF e armazendo a resposta
+//Armazenando o CPF
 
 	strcpy(arquivo, cpf);
 //responsavel por copiar os valores das strings
-    
+
+//cria o arquivo    
     FILE *file;
 //cria o arquivo
-    file = fopen(arquivo, "w");
-//cria o arquivo
+    file = fopen(arquivo, "w");//"w"= Criar
+	fprintf(file,"CPF:");
+	fclose(file);
+//Mostrando que é o cpf	
+
+    file = fopen(arquivo,"a");//"a"= Atualizar
     fprintf(file,cpf);
 //salvo o valor da variavel
     fclose(file); // fecha o arquivo
 // Criando o arquivo principal(cpf)
 	
-	file = fopen(arquivo, "a");
-	fprintf(file,",");
-	fclose(file);
-//Adicionando a virgula
-
 	printf("Digite o nome a ser cadastrado: ");
 	scanf("%s", nome);
+//Armazendando o nome
+	
+	file = fopen(arquivo, "a");
+	fprintf(file,"\nNome:");
+	fclose(file);
+//Mostrando que é o nome
 	
 	file = fopen(arquivo, "a");
 	fprintf(file,nome);
 	fclose(file);
 //Salvando os dados dentro do arquivo (nome)
 	
-	file = fopen(arquivo, "a");
-	fprintf(file,",");
-	fclose(file);
-//Adicionando a virgula	
 
 	printf("Digite o sobrenome a ser cadastrado: ");
 	scanf("%s", sobrenome);
+//Armazenando o sobrenome
+	
+    file = fopen(arquivo, "a");
+	fprintf(file,"\nSobrenome:");
+	fclose(file);
+//Mostrando que é o sobrenome
 	
 	file = fopen(arquivo, "a");
 	fprintf(file,sobrenome);
 	fclose(file);
 //Salvando os dados dentro do arquivo (sobrenome)
 	
-	file = fopen(arquivo, "a");
-	fprintf(file,",");
-	fclose(file);
-//Adicionando a virgula
-	
 	printf("Digite o cargo a ser cadastrado: ");
 	scanf("%s", cargo);
+//Armazendo o cargo
+	
+	file = fopen(arquivo, "a");
+	fprintf(file,"\nCargo:");
+	fclose(file);
+//Mostrando que é o cargo
 	
 	file = fopen(arquivo, "a");
 	fprintf(file, cargo);
@@ -196,8 +271,6 @@ int registro()
 
 menureg();
 //Pergunta se deseja continuar registrando ou voltar ao menu
-
-system("pause");
 
 }
 
@@ -231,15 +304,16 @@ int consulta()
     
 	while(fgets(conteudo, 200, file) != NULL)
 	{
-		printf("\nEssas são as informações do usuário: ");
 		printf("%s", conteudo);
-		printf("\n\n");
 	}
 //Consultando as informações dentro do arquivo e apresentando ao usuario 
 
     fclose(file);
-    system("pause");
 //Fechando o Arquivo
+    printf("\n");
+//Pulando uma linha para não ficar colado
+    system("pause");
+
 
     menucon(); 
 //Pergunta se deseja continuar Consultando ou voltar ao menu     
@@ -251,43 +325,83 @@ int deletar()
 //deletar usuários do sistesma
 {
 	char cpf[40];
-//Variavel	
+	int confirmacao=0;
+//Variaveis
 	
 	system("cls");
 //limpando a tela
+
+    setlocale(LC_ALL,"portuguese");
+//botando em português
 	
 	printf("Digite o CPF do usuário a ser deletado: ");
-	scanf("%s", cpf);
-//Armazernando o CPF a ser excluido, 
-	
-	remove(cpf);
-//excluindo o CPF
-		
-	FILE *file;
-	file= fopen(cpf, "r");
-//Abrindo o arquivo(CPF)
-	
-	if (file == NULL)
-	{
-		printf("O usuário não se encontra no sistema!.\n");
-		system("pause");
-    }
-//Informando que o usuário não se encontra mais no sistema
+	scanf("%s", cpf);	
+//Armazernando o CPF a ser excluido,
+    FILE *file;
+	file = fopen(cpf, "r");// "r" = ler arquivo
+	fclose (file);
+//Checando se o CPF é existente
+     
+     if (file== NULL)
+     {
+     	printf("Erro, CPF não encontrado\n");
+     	system("pause");
+     	menudel();
+	 }
+    //Informando caso o cpf seja inexistente
 
+
+    else
+    {
+    //Confirmação se realmente deseja excluir o CPF
+        printf("Deseja excluir o CPF:");
+        printf(cpf);
+        printf("\n");
+        printf("1- Sim\n");
+        printf("2- Não\n");
+        printf("Excluir:");
+    //Confirmação se realmente deseja excluir o CPF
+        scanf("%d", &confirmacao);
+    //armazenando escolha do usuario
+    
+    //Opções
+        switch(confirmacao)
+       {                  
+       	
+    	   case 1:
+    	   remove(cpf);
+           FILE *file;
+           file= fopen(cpf, "r");
+           break;
+    	
+           case 2:
+           menudel();
+           break;
+
+		   default:
+		   printf("Opção indisponivel\n");
+		   system("pause");
+		   menudel();
+		   break;	
+	   } 
+	//Fim das opções
+    system("pause");
+    
     menudel();
 //Pergunta se deseja continuar deletando ou voltar ao menu
-	
+    }	
 }
 //fim das funçoes
 
 int main()
 //Função principal
 {
-    int opcao=0;
-    int laco=1;
     char senhadigitada[10]="a";
     int comparacao;
     //Definindo variaveis
+    
+    setlocale(LC_ALL, "portuguese");
+    //Botando em português
     
     //Perguntando senha
     printf("### Cartório da EBAC ###\n\n");
@@ -302,68 +416,11 @@ int main()
     
     //Definindo de que a senha for correta abre o menu
     if(comparacao == 0)
-    {    	  
+    {   
+        menuprincipal();
+    }
     
-        for(laco=1;laco=1;)
-       { 
-  
-            system("cls");
-        //limpando a opção escolhida
-        
-    	    setlocale(LC_ALL, "portuguese");
-        //Definindo a linguagem
-    
-        //Inicio do menu
-    	    printf("### Cartório da EBAC ###\n\n");
-        	printf("Escolher a opção desejada do menu:\n\n");
-    	    printf("\t1- Registras nomes\n");
-    	    printf("\t2- Consultar nomes\n");
-    	    printf("\t3- Deletar nomes\n");
-    	    printf("\t4- Sair do progama\n\n");
-    	    printf("opção: ");
-        //Final do menu
-	
-    	    scanf("%d", &opcao);
-        //Armazenando a escolha do usuario
-	
-            system("cls");
-        //Limpando o menu    
-
-        //Indo para dentro das opções
-            switch(opcao)
-            {
-        //Chamando funções  
-    	    	case 1:
-                registro();
-    	        break;
-	        
-    	        case 2:
-    	        consulta();
-    	        break;
-	        
-    			case 3:	
-    			deletar();
-        	    break;
-   	        
-     	        case 4:
-    	        printf("Obrigado por utilizar o sistema\n");
-    	        return 0;
-    	        break;
-   	        
-    	//Acabou de chamar as funções
-   	
-     	        default:
-    	        printf("Está opção não esta disponivel!\n");
-        	    system("pause");
-        	    break;
-        //Informando quando bota uma opção indisponivel	
-       	   }
-	    //Fim das opções 		        
-	    }
-	}
-	//fim
-	
-	else
-	     printf("senha incorreta!");
+        else
+	        printf("senha incorreta!");    
     //Informando que a senha está incorreta
 }
