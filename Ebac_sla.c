@@ -4,8 +4,8 @@
 #include <string.h> //biblioteca responsável por cuidar das strings
 
 //criando funções
+
 int menuprincipal()
-//Função que tras o menu principal
 {
     int opcao=0;
     int laco=1;
@@ -70,7 +70,7 @@ int menuprincipal()
 	}
 }
 		
-void menureg()
+int menureg()
 //Função para perguntar se o usuário deseja voltar ao menu ou cadastrar mais nomes!
 {
 	system("cls");
@@ -94,7 +94,7 @@ void menureg()
 	switch (opcao)
 	{
 		case 1:
-		menuprincipal();
+		return 0;
 		break;
 		case 2:
 		registro();
@@ -110,7 +110,7 @@ void menureg()
 }
 
 
-void menucon()
+int menucon()
 //Função para perguntar se o usuário deseja voltar ao menu ou consultar mais nomes!
 {
 	system("cls");
@@ -136,7 +136,7 @@ void menucon()
 	switch (opcao)
 	{
 		case 1:
-		menuprincipal();
+		return 0;
 		break;
 		case 2:
 		consulta();
@@ -152,7 +152,7 @@ void menucon()
 }
 
 
-void menudel()
+int menudel()
 //Função para perguntar se o usuário deseja voltar ou deletar mais nomes!
 {
 	system("cls");
@@ -176,7 +176,7 @@ void menudel()
 	switch (opcao)
 	{
 		case 1:
-		menuprincipal();
+		return 0;
 		break;
 		case 2:
 		deletar();
@@ -330,9 +330,7 @@ int deletar()
 	
 	system("cls");
 //limpando a tela
-
     setlocale(LC_ALL,"portuguese");
-//botando em português
 	
 	printf("Digite o CPF do usuário a ser deletado: ");
 	scanf("%s", cpf);	
@@ -364,7 +362,6 @@ int deletar()
         scanf("%d", &confirmacao);
     //armazenando escolha do usuario
     
-    //Opções
         switch(confirmacao)
        {                  
        	
@@ -377,16 +374,14 @@ int deletar()
            case 2:
            menudel();
            break;
-
+		   
 		   default:
 		   printf("Opção indisponivel\n");
 		   system("pause");
 		   menudel();
 		   break;	
 	   } 
-	//Fim das opções
     system("pause");
-    
     menudel();
 //Pergunta se deseja continuar deletando ou voltar ao menu
     }	
@@ -399,6 +394,7 @@ int main()
     char senhadigitada[10]="a";
     int comparacao;
     //Definindo variaveis
+    
     
     setlocale(LC_ALL, "portuguese");
     //Botando em português
